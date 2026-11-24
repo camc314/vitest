@@ -475,9 +475,7 @@ const pendingTasksUpdates: Promise<void>[] = []
 
 function sendTasksUpdate(runner: VitestRunner): void {
   if (packs.size) {
-    const taskPacks = Array.from(packs).map<TaskResultPack>(([id, task]) => {
-      return [id, task[0], task[1]]
-    })
+    const taskPacks = Array.from(packs, ([id, task]): TaskResultPack => [id, task[0], task[1]])
     const p = runner.onTaskUpdate?.(taskPacks, eventsPacks)
     if (p) {
       pendingTasksUpdates.push(p)
